@@ -22,7 +22,7 @@ def predict(args, model, device):
     # TODO: Implement the code to predict the class from an image file
     # preprocess the image
     image = process_image(args.image_path)
-    topk = args.mapper_json
+    topk = args.topk
     # From numpy to torch tensor 
     imgto_torch = torch.from_numpy(image).type(torch.FloatTensor)
     imgto_torch = imgto_torch.unsqueeze(0)
@@ -43,24 +43,23 @@ def predict(args, model, device):
 
 def main():
     parser = argparse.ArgumentParser(description = "Classification Predictor")
-    parser.add_argument('--gpu', type = bool, default = False, help = 'enable or disable GPU')
+    parser.add_argument('--gpu', default = False, action ='store_true', help = 'enable or disable GPU')
     parser.add_argument('--image_path', type = str, help = 'Path to image')
     parser.add_argument('--saved_model', type = str, default = 'checkpoint.pth', help = 'path to saved model')
-    parser.add_argument('--mapper_json', type = int, default = 5, help = 'display top k probabilities')
+    parser.add_argument('--topk', type = int, default = 5, help = 'display top k probabilities')
     
     args = parser.parse_args()
     
     with open('cat_to_name.json','r') as f:
         cat_to_name = json.load(f)
     
-    if args.gpu:
-        if torch.cuda.is_available():
-            device = torch.device("cuda")
-            print("Using GPU:{}".format(device))
-        else:
-            device =  torch.device("cpu")
-            print("GPU is not available..now running on CPU")
-            
+    if args.gpu and torch.cuda.is_available():
+        device = torch.device("cuda") 
+        print("Using GPU:{}".format(device))
+    else:
+        device =  torch.device("cpu")
+        print("GPU is not available..now running on CPU")
+
     model = load_checkpoint(args)
     
     top_probability, top_class = predict(args,model, device) 

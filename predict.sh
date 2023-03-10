@@ -1,1 +1,1 @@
-python predict.py --image_path 'flowers/test/2/image_05107.jpg' --gpu True
+python predict.py --image_path 'flowers/test/2/image_05107.jpg' --gpu

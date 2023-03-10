@@ -75,14 +75,13 @@ def train_model(args):
     elif args.arch == 'densenet':
         pretrained_model = "densenet121"
     
-    if args.gpu:
-        if torch.cuda.is_available():
-            device = torch.device("cuda")
-            print("Using GPU:{}".format(device))
-        else:
-            device =  torch.device("cpu")
-            print("GPU is not available..now running on CPU")
-            
+    if args.gpu and torch.cuda.is_available():
+        device = torch.device("cuda") 
+        print("Using GPU:{}".format(device))
+    else:
+        device =  torch.device("cpu")
+        print("GPU is not available..now running on CPU")
+
     # start with pre-trained network
     model,criterion,optimizer = build_network(args,pretrained_model,device) 
     image_datasets, dataloaders = data_prep(args) 
@@ -125,7 +124,7 @@ def train_model(args):
 
 def main():
     parser = argparse.ArgumentParser(description = "Classification Trainer")
-    parser.add_argument('--gpu', type = bool, default = False, help = 'enable or disable GPU')
+    parser.add_argument('--gpu', default = False, action ='store_true', help = 'enable or disable GPU')
     parser.add_argument('--arch', type = str, default = "vgg", help = " choose from vgg or densenet", required = True)
     parser.add_argument('--lr', type = float, default = 0.001, help = 'set learning rate ')
     parser.add_argument('--hidden_units', type = int, default = 4096, help = 'hidden unit')

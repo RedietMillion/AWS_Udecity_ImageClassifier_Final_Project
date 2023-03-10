@@ -15,13 +15,13 @@ The project is broken down into multiple steps:
 * Use the trained classifier to predict image content
 
 **For training use the following sample command:**
-    ``` python train.py  --arch vgg --gpu True --epochs 15``` 
+    ``` python train.py  --arch vgg --gpu  --epochs 15``` 
     or 
 ```
 bash train.sh
 ```
 **For prediction use the following sample command:**
-    ``` python predict.py --image_path 'flowers/test/2/image_05107.jpg' --gpu True```
+    ``` python predict.py --image_path 'flowers/test/2/image_05107.jpg' --gpu```
     or 
 ```
 bash predict.sh

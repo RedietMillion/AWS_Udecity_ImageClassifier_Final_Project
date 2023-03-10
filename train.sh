@@ -1,1 +1,1 @@
-python train.py  --arch vgg --gpu True --epochs 15
+python train.py  --arch vgg --gpu  --epochs 15
