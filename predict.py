@@ -47,7 +47,7 @@ def main():
     parser.add_argument('--image_path', type = str, help = 'Path to image')
     parser.add_argument('--saved_model', type = str, default = 'checkpoint.pth', help = 'path to saved model')
     parser.add_argument('--topk', type = int, default = 5, help = 'display top k probabilities')
-    parser.add_argument('--load_json', type =str, default = 'cat_to_name.json', help='path to json file')
+    parser.add_argument('--load_json', type =str, default = 'cat_to_name.json', help='path to json file for category mapping file')
     
     args = parser.parse_args()
     
